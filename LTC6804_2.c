@@ -130,9 +130,9 @@ void LTC68042_Address_RDCVA()
 	spi_write(RDCVA_CommandArray[3]);
 	for(dataIndex = 0; dataIndex < TOTALDATABYTES; dataIndex++)
 	{
-		RDCVA_DataArray[deviceIndex][dataIndex] = spi_read(0);
-		printf("The voltage on board %d is %d \n", 
-			   deviceIndex, RDCVA_DataArray[deviceIndex][dataIndex]);
+		RDCVA_DataArray[dataIndex] = spi_read(0);
+		printf("The voltage is %d \n", 
+			RDCVA_DataArray[dataIndex]);
 	}
 	output_high(CSB);
 }	
