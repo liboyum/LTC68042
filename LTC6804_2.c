@@ -56,7 +56,7 @@ void isoSPI_WakeUp_Write()
 		output_low(CSB);
 		spi_write(0x00);
 		output_high(CSB);
-		delay_us(totalisoWakeUpTime);
+		delayMicroseconds(totalisoWakeUpTime);
 	}
 }
 
@@ -118,9 +118,9 @@ void LTC68042_Address_RDCVA()
 	const uint8_t TOTALCOMMANDBYTES = 4;
 	const uint8_t TOTALDATABYTES = 8;
 	uint8_t dataIndex = 0;
-	uint8_t RDCVA_CommandArray[TOTALCOMMANDBYTES] = {0x88, 0x04, 0x84, 0x28}；
+	uint8_t RDCVA_CommandArray[TOTALCOMMANDBYTES] = {0x88, 0x04, 0x84, 0x28};
 
-	uint8_t RDCVA_DataArray[TOTALDATABYTES] = {0, 0, 0, 0, 0, 0, 0, 0}；
+	uint8_t RDCVA_DataArray[TOTALDATABYTES] = {0, 0, 0, 0, 0, 0, 0, 0};
 
 	isoSPI_WakeUp_Write();
 	output_low(CSB);
