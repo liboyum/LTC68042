@@ -1,3 +1,7 @@
+#include <fcntl.h>				//Needed for SPI port
+#include <sys/ioctl.h>			//Needed for SPI port
+#include <linux/spi/spidev.h>	//Needed for SPI port
+#include <unistd.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
