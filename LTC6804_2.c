@@ -122,19 +122,13 @@ void LTC68042_Address_RDCVA()
 	const uint8_t TOTALCOMMANDBYTES = 4;
 	const uint8_t TOTALDATABYTES = 8;
 	uint8_t dataIndex = 0;
-	uint8_t RDCVA_CommandArray[TOTALCOMMANDBYTES];
-
 	uint8_t RDCVA_DataArray[TOTALDATABYTES];
-		RDCVA_CommandArray[0] = 0x88;
-		RDCVA_CommandArray[1] = 0x04;
-		RDCVA_CommandArray[2] = 0x84;
-		RDCVA_CommandArray[3] = 0x28;
 	isoSPI_WakeUp_Write();
 	output_low(CSB);
-	spi_write(RDCVA_CommandArray[0]);
-	spi_write(RDCVA_CommandArray[1]);
-	spi_write(RDCVA_CommandArray[2]);
-	spi_write(RDCVA_CommandArray[3]);
+	spi_write(0x88);
+	spi_write(0x04);
+	spi_write(0x84);
+	spi_write(0x28);
 	for(dataIndex = 0; dataIndex < TOTALDATABYTES; dataIndex++)
 	{
 		RDCVA_DataArray[dataIndex] = spi_read(0);
