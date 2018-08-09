@@ -1,11 +1,12 @@
-#include <fcntl.h>		//Needed for SPI port
-#include <sys/ioctl.h>		//Needed for SPI port
+#include <fcntl.h>				//Needed for SPI port
+#include <sys/ioctl.h>			//Needed for SPI port
 #include <linux/spi/spidev.h>	//Needed for SPI port
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
 #include <wiringPi.h>
+#include <wiringPiSPI.h>
 
 #define output_low(pin)    digitalWrite(pin, LOW);
 #define output_high(pin)   digitalWrite(pin, HIGH);
