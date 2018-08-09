@@ -116,14 +116,14 @@ void LTC68042_Broadcast_ADCV()
 
 void LTC68042_Address_RDCVA()
 {
-	uint8_t cmd[4] = {0x88, 0x04, 0x84, 0x28};
+	uint8_t cmd[4] = {0x80, 0x04, 0x84, 0x28};
 	uint8_t data[8] = {0, 0, 0, 0, 0, 0, 0, 0};
 	uint8_t dataIndex = 0;
 	isoSPI_WakeUp_Write();
 	output_low(CSB);
 	wiringPiSPIDataRW(CHANNEL, cmd, 4);
 	delay(500);
-	// spi_write(0x88);
+	// spi_write(0x80);
 	// spi_write(0x04);
 	// spi_write(0x84);
 	// spi_write(0x28);
