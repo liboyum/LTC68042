@@ -17,7 +17,7 @@
 #define MOSI 13
 #define SCK  14
 
-#define CHANNEL 0;
+#define CHANNEL 0
 #define SPEED   500000
 
 void isoSPI_WakeUp_Write();
@@ -32,7 +32,7 @@ int main(void)
 {
 
 	printf("Raspberry Pi LTC6804-2 voltage test program");
-	if(wiringPiSetUp() == -1)
+	if(wiringPiSetup() == -1)
 		exit(1);
 	while(1);
 	{
@@ -102,7 +102,7 @@ void isoSPI_WakeUp_Write()
 	}
 }
 
-void LTC68042_Broadcast_ADCV(uint8_t broadADCVCmd)
+void LTC68042_Broadcast_ADCV()
 {
 	uint8_t cmd[4] = {0x03, 0x70, 0xAF, 0x42};
 	isoSPI_WakeUp_Write();
@@ -128,7 +128,7 @@ void LTC68042_Address_RDCVA()
 	// spi_write(0x04);
 	// spi_write(0x84);
 	// spi_write(0x28);
-	wiringPiSPIDataRW(CHANNEL, data, 8)
+	wiringPiSPIDataRW(CHANNEL, data, 8);
 	for(dataIndex = 0; dataIndex < 8; dataIndex++)
 	{
 		printf("The voltage is %d \n", data[dataIndex]);
