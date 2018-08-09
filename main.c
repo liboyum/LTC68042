@@ -29,6 +29,7 @@ void LTC68042_Broadcast_CLRCELL();
 
 int main(void)
 {
+
 	printf("Raspberry Pi LTC6804-2 voltage test program");
 	if(wiringPiSetUp() == -1)
 		exit(1);
@@ -93,51 +94,56 @@ void isoSPI_WakeUp_Write()
 	if(sendWakeUp)
 	{
 		output_low(CSB);
-		spi_write(0x00);
+		//spi_write(0x00);
+		wiringPiSPIDataRW(CHANNEL, 0x00, 1);
 		output_high(CSB);
 		delayMicroseconds(totalisoWakeUpTime);
 	}
 }
 
-void LTC68042_Broadcast_ADCV()
+void LTC68042_Broadcast_ADCV(uint8_t broadADCVCmd)
 {
+	uint8_t cmd[4] = {0x03, 0x70, 0xAF, 0x42};
 	isoSPI_WakeUp_Write();
 	output_low(CSB);
-	spi_write(0x03);
-	spi_write(0x70);
-	spi_write(0xAF);
-	spi_write(0x42);	
+	wiringPiSPIDataRW(CHANNEL, cmd, 4);
+	// spi_write(0x03);
+	// spi_write(0x70);
+	// spi_write(0xAF);
+	// spi_write(0x42);	
 	output_high(CSB);
 }
 
 void LTC68042_Address_RDCVA()
 {
-	const uint8_t TOTALCOMMANDBYTES = 4;
-	const uint8_t TOTALDATABYTES = 8;
+	uint8_t cmd[4] = {0x88, 0x04, 0x84, 0x28};
+	uint8_t data[8] = {0, 0, 0, 0, 0, 0, 0, 0};
 	uint8_t dataIndex = 0;
-	uint8_t RDCVA_DataArray[TOTALDATABYTES];
 	isoSPI_WakeUp_Write();
 	output_low(CSB);
-	spi_write(0x88);
-	spi_write(0x04);
-	spi_write(0x84);
-	spi_write(0x28);
-	for(dataIndex = 0; dataIndex < TOTALDATABYTES; dataIndex++)
+	wiringPiSPIDataRW(CHANNEL, cmd, 4);
+	delay(500);
+	// spi_write(0x88);
+	// spi_write(0x04);
+	// spi_write(0x84);
+	// spi_write(0x28);
+	wiringPiSPIDataRW(CHANNEL, data, 8)
+	for(dataIndex = 0; dataIndex < 8; dataIndex++)
 	{
-		RDCVA_DataArray[dataIndex] = spi_read(0);
-		printf("The voltage is %d \n", 
-			RDCVA_DataArray[dataIndex]);
+		printf("The voltage is %d \n", data[dataIndex]);
 	}
 	output_high(CSB);
 }	
 
 void LTC68042_Broadcast_CLRCELL()
 {
+	uint8_t cmd[4] = {0x07, 0x11, 0xC9, 0xC0};
 	isoSPI_WakeUp_Write();
 	output_low(CSB);
-	spi_write(0x07);
-	spi_write(0x11);
-	spi_write(0xC9);
-	spi_write(0xC0);	
+	wiringPiSPIDataRW(CHANNEL, cmd, 4);
+	// spi_write(0x07);
+	// spi_write(0x11);
+	// spi_write(0xC9);
+	// spi_write(0xC0);	
 	output_high(CSB);	
 }
