@@ -7,7 +7,7 @@
 #define output_high(pin)   digitalWrite(pin, HIGH);
 #define input(pin)         digitalRead(pin);
 
-#define CSB  10
+#define CE0  10
 #define MISO 12 
 #define MOSI 13
 #define SCK  14
