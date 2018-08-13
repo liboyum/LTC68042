@@ -373,7 +373,7 @@ uint8_t LTC6804_rdcv(uint8_t reg,
           parsed_cell = cell_data[data_counter] + (cell_data[data_counter + 1] << 8);
           cell_codes[current_ic][current_cell  + ((cell_reg - 1) * CELL_IN_REG)] = parsed_cell;
           data_counter = data_counter + 2;
-	  printf("The voltage is %1.2f\n", parsed_cell*0.00001*5);
+	  printf("The voltage is %1.2f\n", parsed_cell*0.0001);
         }
 		//a.iii
         received_pec = (cell_data[data_counter] << 8) + cell_data[data_counter+1];
