@@ -151,8 +151,7 @@ int main(void)
 {
 
 	printf("Raspberry Pi LTC6804-2 voltage test program\n");
-	uint16_t cell_codes[1][12]={0,0,0,0,0,0,0,0,0,0,0,0};
-	uint16_t aux_codes[1][6]={0,0,0,0,0,0};
+	uint16_t cell_codes[][12]={0,0,0,0,0,0,0,0,0,0,0,0};
 	LTC6804_initialize();
         pinMode(SCK, OUTPUT);             //! 1) Setup SCK as output
         pinMode(MOSI, OUTPUT);            //! 2) Setup MOSI as output
@@ -162,8 +161,6 @@ int main(void)
         output_high(LTC6804_CS);
 	LTC6804_adcv();
 	LTC6804_rdcv(0, 1, cell_codes);
-	LTC6804_adax();
-	LTC6804_rdaux(0, 1, aux_codes);
 	return 0;
 }
 
