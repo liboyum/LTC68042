@@ -1021,6 +1021,6 @@ void print_voltage(uint16_t cell_codes[][12])
 {
     for(int i=0; i<12; i++)
     {
-      printf("The voltage is %.2f\n", cell_codes[1][i]*0.0001);
+      printf("The voltage is %1.4f\n", cell_codes[1][i]*0.0001);
     }
 }
