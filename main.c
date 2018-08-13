@@ -142,16 +142,16 @@ void wakeup_sleep();
 
 uint16_t pec15_calc(uint8_t len, uint8_t *data);
 
-void spi_write_array( uint8_t len, uint8_t *data);
+void spi_write_array( uint8_t len, uint8_t data[]);
 
-void spi_write_read(uint8_t *tx_Data, uint8_t tx_len, uint8_t *rx_data, uint8_t rx_len);
+void spi_write_read(uint8_t tx_Data[], uint8_t tx_len, uint8_t *rx_data, uint8_t rx_len);
 
 
 int main(void)
 {
 
 	printf("Raspberry Pi LTC6804-2 voltage test program\n");
-	uint16_t cell_codes[][12]={0,0,0,0,0,0,0,0,0,0,0,0};
+	uint16_t cell_codes[1][12]={0,0,0,0,0,0,0,0,0,0,0,0};
 	LTC6804_initialize();
         pinMode(SCK, OUTPUT);             //! 1) Setup SCK as output
         pinMode(MOSI, OUTPUT);            //! 2) Setup MOSI as output
@@ -974,7 +974,7 @@ uint16_t pec15_calc(uint8_t len, uint8_t *data)
  
 */
 void spi_write_array(uint8_t len, // Option: Number of bytes to be written on the SPI port
-					 uint8_t *data //Array of bytes to be written on the SPI port
+					 uint8_t data[] //Array of bytes to be written on the SPI port
 					 )
 {
   wiringPiSPIDataRW(CHANNEL, data, len);
@@ -991,7 +991,7 @@ void spi_write_array(uint8_t len, // Option: Number of bytes to be written on th
 @param[in] uint8_t rx_len number of bytes to be read from the SPI port.
 */
 
-void spi_write_read(uint8_t *tx_Data,//array of data to be written on SPI port 
+void spi_write_read(uint8_t tx_Data[],//array of data to be written on SPI port 
 					uint8_t tx_len, //length of the tx data arry
 					uint8_t *rx_data,//Input: array that will store the data read by the SPI port
 					uint8_t rx_len //Option: number of bytes to be read from the SPI port
