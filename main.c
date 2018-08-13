@@ -146,12 +146,14 @@ void spi_write_array( uint8_t len, uint8_t *data);
 
 void spi_write_read(uint8_t *tx_Data, uint8_t tx_len, uint8_t *rx_data, uint8_t rx_len);
 
+void print_voltage();
+
 
 int main(void)
 {
 
 	printf("Raspberry Pi LTC6804-2 voltage test program\n");
-	uint16_t cell_codes[][12]={0,0,0,0,0,0,0,0,0,0,0,0};
+	uint16_t cell_codes[][12];
 	LTC6804_initialize();
         pinMode(SCK, OUTPUT);             //! 1) Setup SCK as output
         pinMode(MOSI, OUTPUT);            //! 2) Setup MOSI as output
@@ -161,6 +163,7 @@ int main(void)
         output_high(LTC6804_CS);
 	LTC6804_adcv();
 	LTC6804_rdcv(0, 1, cell_codes);
+	print_voltage();
 	return 0;
 }
 
@@ -373,7 +376,6 @@ uint8_t LTC6804_rdcv(uint8_t reg,
           parsed_cell = cell_data[data_counter] + (cell_data[data_counter + 1] << 8);
           cell_codes[current_ic][current_cell  + ((cell_reg - 1) * CELL_IN_REG)] = parsed_cell;
           data_counter = data_counter + 2;
-	  printf("The voltage is %1.2f\n", parsed_cell*0.0001);
         }
 		//a.iii
         received_pec = (cell_data[data_counter] << 8) + cell_data[data_counter+1];
@@ -1013,4 +1015,12 @@ void spi_write_read(uint8_t *tx_Data,//array of data to be written on SPI port
   // {
   //   rx_data[i] = (uint8_t)spi_read(0xFF);
   // }
+}
+
+void print_voltage()
+{
+    for(int i=0; i<12; i++)
+    {
+      printf("The voltage is %1.2f\n", cell_codes[][i]*0.0001);
+    }
 }
