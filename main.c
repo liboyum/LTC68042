@@ -159,8 +159,10 @@ int main(void)
         output_low(SCK);
         output_low(MOSI);
         output_high(LTC6804_CS);
-	LTC6804_adcv();
-	LTC6804_rdcv(0, 1, cell_codes);
+	whilt(1){
+	  LTC6804_adcv();
+	  LTC6804_rdcv(0, 1, cell_codes);
+	}
 	return 0;
 }
 
