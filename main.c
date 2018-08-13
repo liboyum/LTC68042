@@ -150,7 +150,7 @@ void spi_write_read(uint8_t *tx_Data, uint8_t tx_len, uint8_t *rx_data, uint8_t 
 int main(void)
 {
 
-	printf("Raspberry Pi LTC6804-2 voltage test program");
+	printf("Raspberry Pi LTC6804-2 voltage test program\n");
 	uint16_t cell_codes[][12]={0,0,0,0,0,0,0,0,0,0,0,0};
 	LTC6804_initialize();
         pinMode(SCK, OUTPUT);             //! 1) Setup SCK as output
