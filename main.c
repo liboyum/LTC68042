@@ -146,7 +146,7 @@ void spi_write_array( uint8_t len, uint8_t *data);
 
 void spi_write_read(uint8_t *tx_Data, uint8_t tx_len, uint8_t *rx_data, uint8_t rx_len);
 
-void print_voltage();
+void print_voltage(uint16_t cell_codes[][12]);
 
 
 int main(void)
@@ -163,7 +163,7 @@ int main(void)
         output_high(LTC6804_CS);
 	LTC6804_adcv();
 	LTC6804_rdcv(0, 1, cell_codes);
-	print_voltage();
+	print_voltage(cell_codes);
 	return 0;
 }
 
@@ -1017,7 +1017,7 @@ void spi_write_read(uint8_t *tx_Data,//array of data to be written on SPI port
   // }
 }
 
-void print_voltage()
+void print_voltage(uint16_t cell_codes[][12])
 {
     for(int i=0; i<12; i++)
     {
