@@ -373,6 +373,7 @@ uint8_t LTC6804_rdcv(uint8_t reg,
           parsed_cell = cell_data[data_counter] + (cell_data[data_counter + 1] << 8);
           cell_codes[current_ic][current_cell  + ((cell_reg - 1) * CELL_IN_REG)] = parsed_cell;
           data_counter = data_counter + 2;
+	  printf("The voltage is %d\n", parsed_cell);
         }
 		//a.iii
         received_pec = (cell_data[data_counter] << 8) + cell_data[data_counter+1];
@@ -1004,10 +1005,10 @@ void spi_write_read(uint8_t *tx_Data,//array of data to be written on SPI port
 
   // }
   wiringPiSPIDataRW(CHANNEL, rx_data, rx_len);
-  for(uint8_t i = 0; i < rx_len; i++)
-  {
-    printf("The voltage is %d\n", rx_data[i]);
-  }
+//   for(uint8_t i = 0; i < rx_len; i++)
+//   {
+//     printf("The voltage is %d\n", rx_data[i]);
+//   }
   // for(uint8_t i = 0; i < rx_len; i++)
   // {
   //   rx_data[i] = (uint8_t)spi_read(0xFF);
