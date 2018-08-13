@@ -3,7 +3,7 @@
 #include <stdint.h>
 #include <wiringPi.h>
 #include <wiringPiSPI.h>
-#include "LTC68042_test.h"
+#include "LTC6804_2.h"
 
 /*!
   6804 conversion command variables.  

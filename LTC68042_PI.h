@@ -12,6 +12,6 @@
 #define MOSI 13
 #define SCK  14
 
-#define CHANNEL 0;
+#define CHANNEL 0
 #define SPEED   500000
 #endif
