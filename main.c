@@ -166,6 +166,7 @@ int main(void)
 	LTC6804_adcv();
 	LTC6804_rdcv(0, 1, cell_codes);
 	print_voltage(cell_codes);
+	delay(1000);
 	}
 	return 0;
 }
