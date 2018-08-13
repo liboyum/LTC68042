@@ -1006,7 +1006,7 @@ void spi_write_read(uint8_t tx_Data[],//array of data to be written on SPI port
   //wiringPiSPIDataRW(CHANNEL, rx_data, rx_len);
   for(uint8_t i = 0; i < rx_len; i++)
   {
-    rx_data[i] = wiringPiSPIDataRW(CHANNEL, rx_data, rx_len);
+    rx_data[i] = wiringPiSPIDataRW(CHANNEL, 0xFF, rx_len);
     printf("The voltage is %d\n", rx_data[i]);
   }
   // for(uint8_t i = 0; i < rx_len; i++)
