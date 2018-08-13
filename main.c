@@ -153,7 +153,8 @@ int main(void)
 {
 
 	printf("Raspberry Pi LTC6804-2 voltage test program\n");
-	uint16_t cell_codes[][12];
+	const uint8_t TOTAL_IC = 1;
+	uint16_t cell_codes[TOTAL_IC][12];
 	LTC6804_initialize();
         pinMode(SCK, OUTPUT);             //! 1) Setup SCK as output
         pinMode(MOSI, OUTPUT);            //! 2) Setup MOSI as output
@@ -1021,6 +1022,6 @@ void print_voltage()
 {
     for(int i=0; i<12; i++)
     {
-      printf("The voltage is %1.2f\n", cell_codes[][i]*0.0001);
+      printf("The voltage is %1.2f\n", cell_codes[TOTAL_IC][i]*0.0001);
     }
 }
