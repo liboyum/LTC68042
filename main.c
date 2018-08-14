@@ -114,7 +114,7 @@ uint16_t cell_codes[TOTAL_IC][12];
 uint8_t tx_cfg[TOTAL_IC][6]; 
 
 void LTC6804_initialize();
-
+void init_cfg();
 void set_adc(uint8_t MD, uint8_t DCP, uint8_t CH, uint8_t CHG);
 
 void LTC6804_adcv(); 
