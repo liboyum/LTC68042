@@ -192,7 +192,7 @@ void LTC6804_initialize()
   }
   spiError = wiringPiSPISetup(CHANNEL, SPEED);
   if(spiError = -1){
-	printf("SPI setup failed\n");
+	printf("SPI setup failed with error [%s]\n",strerror(errno));
   }
   set_adc(MD_NORMAL,DCP_DISABLED,CELL_CH_ALL,AUX_CH_ALL);
 }
