@@ -158,12 +158,12 @@ int main(void)
 // 	LTC6804_wrcfg(TOTAL_IC,tx_cfg);
         pinMode(SCK, OUTPUT);             //! 1) Setup SCK as output
         pinMode(MOSI, OUTPUT);            //! 2) Setup MOSI as output
-        pinMode(LTC6804_CS, OUTPUT);      //! 3) Setup CS as output
+        pinMode(CE0, OUTPUT);      //! 3) Setup CS as output
 //         output_low(SCK);
 //         output_low(MOSI);
 //         output_high(LTC6804_CS);
 	LTC6804_adcv();
-	rdError = LTC6804_rdcv(1, TOTAL_IC, cell_codes);
+	rdError = LTC6804_rdcv(2, TOTAL_IC, cell_codes);
 	if(rdError == -1){
 		printf("A PEC error was detected in the received data\n");
 	}
