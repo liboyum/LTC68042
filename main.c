@@ -185,7 +185,6 @@ uint8_t ADAX[2]; //!< GPIO conversion command.
 */
 void LTC6804_initialize()
 {
-  errno = 0;
   setupError = wiringPiSetup();
   if(setupError = -1){
 	  printf("WiringPi setup failed with error [%s]\n",strerror(errno));
