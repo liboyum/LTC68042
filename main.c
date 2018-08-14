@@ -170,6 +170,7 @@ int main(void)
 	else{
 		print_voltage();
 	}
+	LTC6804_clrcell();
 	return 0;
 }
 
