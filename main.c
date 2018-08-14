@@ -115,7 +115,7 @@ uint16_t cell_codes[TOTAL_IC][12];
 int error = 0;
 
 void LTC6804_initialize();
-void init_cfg();
+// void init_cfg();
 void set_adc(uint8_t MD, uint8_t DCP, uint8_t CH, uint8_t CHG);
 
 void LTC6804_adcv(); 
@@ -155,13 +155,13 @@ int main(void)
 
 	printf("Raspberry Pi LTC6804-2 voltage test program\n");
 	LTC6804_initialize();
-	LTC6804_wrcfg(TOTAL_IC,tx_cfg);
-//         pinMode(SCK, OUTPUT);             //! 1) Setup SCK as output
-//         pinMode(MOSI, OUTPUT);            //! 2) Setup MOSI as output
-//         pinMode(LTC6804_CS, OUTPUT);      //! 3) Setup CS as output
-//         output_low(SCK);
-//         output_low(MOSI);
-//         output_high(LTC6804_CS);
+// 	LTC6804_wrcfg(TOTAL_IC,tx_cfg);
+        pinMode(SCK, OUTPUT);             //! 1) Setup SCK as output
+        pinMode(MOSI, OUTPUT);            //! 2) Setup MOSI as output
+        pinMode(LTC6804_CS, OUTPUT);      //! 3) Setup CS as output
+        output_low(SCK);
+        output_low(MOSI);
+        output_high(LTC6804_CS);
 	LTC6804_adcv();
 	error = LTC6804_rdcv(0, TOTAL_IC, cell_codes);
 	if(error = -1){
@@ -192,20 +192,20 @@ void LTC6804_initialize()
   // output_low(MOSI);
   // output_high(LTC6804_CS);
   wiringPiSetup();
-  init_cfg();
+//   init_cfg();
   set_adc(MD_NORMAL,DCP_DISABLED,CELL_CH_ALL,AUX_CH_ALL);
 }
 
-void init_cfg(){
-  for(int i = 0; i<TOTAL_IC;i++){
-    tx_cfg[i][0] = 0x04;
-    tx_cfg[i][1] = 0x00;
-    tx_cfg[i][2] = 0x00;
-    tx_cfg[i][3] = 0x00;
-    tx_cfg[i][4] = 0x00;
-    tx_cfg[i][5] = 0x10;
-  }
-}
+// void init_cfg(){
+//   for(int i = 0; i<TOTAL_IC;i++){
+//     tx_cfg[i][0] = 0x04;
+//     tx_cfg[i][1] = 0x00;
+//     tx_cfg[i][2] = 0x00;
+//     tx_cfg[i][3] = 0x00;
+//     tx_cfg[i][4] = 0x00;
+//     tx_cfg[i][5] = 0x10;
+//   }
+// }
 
 /*!******************************************************************************************************************
  \brief Maps  global ADC control variables to the appropriate control bytes for each of the different ADC commands
@@ -362,7 +362,7 @@ void LTC6804_adax()
  *************************************************/
 uint8_t LTC6804_rdcv(uint8_t reg,
 					 uint8_t total_ic,
-					 uint16_t cell_codes[TOTAL_IC][12]
+					 uint16_t cell_codes[][12]
 					 )
 {
   const uint8_t NUM_RX_BYT = 8;
