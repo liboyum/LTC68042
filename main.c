@@ -111,7 +111,8 @@ static const unsigned int crc15Table[256] = {0x0,0xc599, 0xceab, 0xb32, 0xd8cf, 
 
 #define TOTAL_IC 1
 uint16_t cell_codes[TOTAL_IC][12];
-int error = 0;
+int rdError = 0;
+int setupError = 0;
 
 void LTC6804_initialize();
 
@@ -153,6 +154,10 @@ int main(void)
 {
 	printf("Raspberry Pi LTC6804-2 voltage test program\n");
 	LTC6804_initialize();
+	setupError = wiringPiSPISetup(CHANNEL, SPEED);
+	if(setupError = -1){
+		printf("SPI setup failed\n");
+	}
 // 	LTC6804_wrcfg(TOTAL_IC,tx_cfg);
         pinMode(SCK, OUTPUT);             //! 1) Setup SCK as output
         pinMode(MOSI, OUTPUT);            //! 2) Setup MOSI as output
@@ -161,8 +166,8 @@ int main(void)
         output_low(MOSI);
         output_high(LTC6804_CS);
 	LTC6804_adcv();
-	error = LTC6804_rdcv(0, TOTAL_IC, cell_codes);
-	if(error = -1){
+	rdError = LTC6804_rdcv(0, TOTAL_IC, cell_codes);
+	if(rdError = -1){
 		printf("A PEC error was detected in the received data\n");
 	}
 	else{
