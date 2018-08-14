@@ -186,12 +186,12 @@ uint8_t ADAX[2]; //!< GPIO conversion command.
 void LTC6804_initialize()
 {
   setupError = wiringPiSetup();
-  if(setupError = -1){
-	  printf("WiringPi setup failed with error [%s]\n",strerror(errno));
+  if(setupError == -1){
+	  printf("WiringPi setup failed\n");
   }
   spiError = wiringPiSPISetup(CHANNEL, SPEED);
-  if(spiError = -1){
-	printf("SPI setup failed with error [%s]\n",strerror(errno));
+  if(spiError == -1){
+	printf("SPI setup failed\n");
   }
   set_adc(MD_NORMAL,DCP_DISABLED,CELL_CH_ALL,AUX_CH_ALL);
 }
