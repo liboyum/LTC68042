@@ -111,6 +111,8 @@ static const unsigned int crc15Table[256] = {0x0,0xc599, 0xceab, 0xb32, 0xd8cf, 
 
 #define TOTAL_IC 1
 uint8_t tx_cfg[TOTAL_IC][6]; 
+uint16_t cell_codes[TOTAL_IC][12];
+int error = 0;
 
 void LTC6804_initialize();
 void init_cfg();
@@ -120,7 +122,7 @@ void LTC6804_adcv();
 
 void LTC6804_adax();
 
-uint8_t LTC6804_rdcv(uint8_t reg, uint8_t total_ic, uint16_t cell_codes[TOTAL_IC][12]);
+uint8_t LTC6804_rdcv(uint8_t reg, uint8_t total_ic, uint16_t cell_codes[][12]);
 
 void LTC6804_rdcv_reg(uint8_t reg, uint8_t total_ic, uint8_t *data);
 
@@ -146,13 +148,12 @@ void spi_write_array( uint8_t len, uint8_t *data);
 
 void spi_write_read(uint8_t *tx_Data, uint8_t tx_len, uint8_t *rx_data, uint8_t rx_len);
 
-void print_voltage(uint16_t cell_codes[TOTAL_IC][12]);
+void print_voltage();
 
 int main(void)
 {
 
 	printf("Raspberry Pi LTC6804-2 voltage test program\n");
-	uint16_t cell_codes[TOTAL_IC][12];
 	LTC6804_initialize();
 	LTC6804_wrcfg(TOTAL_IC,tx_cfg);
 //         pinMode(SCK, OUTPUT);             //! 1) Setup SCK as output
@@ -162,8 +163,13 @@ int main(void)
 //         output_low(MOSI);
 //         output_high(LTC6804_CS);
 	LTC6804_adcv();
-	LTC6804_rdcv(0, TOTAL_IC, cell_codes);
-	print_voltage(cell_codes);
+	error = LTC6804_rdcv(0, TOTAL_IC, cell_codes);
+	if(error = -1){
+		printf("A PEC error was detected in the received data\n");
+	}
+	else{
+		print_voltage();
+	}
 	return 0;
 }
 
@@ -186,8 +192,8 @@ void LTC6804_initialize()
   // output_low(MOSI);
   // output_high(LTC6804_CS);
   wiringPiSetup();
+  init_cfg();
   set_adc(MD_NORMAL,DCP_DISABLED,CELL_CH_ALL,AUX_CH_ALL);
-  init_cfg(); 
 }
 
 void init_cfg(){
@@ -1027,7 +1033,7 @@ void spi_write_read(uint8_t *tx_Data,//array of data to be written on SPI port
   // }
 }
 
-void print_voltage(uint16_t cell_codes[TOTAL_IC][12])
+void print_voltage()
 {
     for(int i=0; i<12; i++)
     {
