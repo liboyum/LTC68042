@@ -13,8 +13,8 @@
 #define SCK  14
 #define LTC6804_CS CE0
 
-int CHANNEL=0;
-int SPEED=1000000;
+#define CHANNEL 0
+#define SPEED   1000000
 
 static const unsigned int crc15Table[256] = {0x0,0xc599, 0xceab, 0xb32, 0xd8cf, 0x1d56, 0x1664, 0xd3fd, 0xf407, 0x319e, 0x3aac,  //!<precomputed CRC15 Table
 0xff35, 0x2cc8, 0xe951, 0xe263, 0x27fa, 0xad97, 0x680e, 0x633c, 0xa6a5, 0x7558, 0xb0c1, 
@@ -154,10 +154,6 @@ int main(void)
 {
 	printf("Raspberry Pi LTC6804-2 voltage test program\n");
 	LTC6804_initialize();
-	setupError = wiringPiSPISetup(CHANNEL, SPEED);
-	if(setupError = -1){
-		printf("SPI setup failed\n");
-	}
 // 	LTC6804_wrcfg(TOTAL_IC,tx_cfg);
         pinMode(SCK, OUTPUT);             //! 1) Setup SCK as output
         pinMode(MOSI, OUTPUT);            //! 2) Setup MOSI as output
@@ -187,6 +183,10 @@ uint8_t ADAX[2]; //!< GPIO conversion command.
 void LTC6804_initialize()
 {
   wiringPiSetup();
+  setupError = wiringPiSPISetup(CHANNEL, SPEED);
+  if(setupError = -1){
+	printf("SPI setup failed\n");
+  }
   set_adc(MD_NORMAL,DCP_DISABLED,CELL_CH_ALL,AUX_CH_ALL);
 }
 
