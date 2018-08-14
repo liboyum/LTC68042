@@ -109,8 +109,10 @@ static const unsigned int crc15Table[256] = {0x0,0xc599, 0xceab, 0xb32, 0xd8cf, 
 #define DCP_DISABLED 0
 #define DCP_ENABLED 1
 
-
-
+const int TOTAL_IC = 1;
+uint8_t ADCV[2]; //!< Cell Voltage conversion command.
+uint8_t ADAX[2]; //!< GPIO conversion command.
+uint16_t cell_codes[TOTAL_IC][12];
 
 void LTC6804_initialize();
 
@@ -120,7 +122,7 @@ void LTC6804_adcv();
 
 void LTC6804_adax();
 
-uint8_t LTC6804_rdcv(uint8_t reg, uint8_t total_ic, uint16_t cell_codes[][12]);
+uint8_t LTC6804_rdcv(uint8_t reg, uint8_t total_ic, uint16_t cell_codes[TOTAL_IC][12]);
 
 void LTC6804_rdcv_reg(uint8_t reg, uint8_t total_ic, uint8_t *data);
 
@@ -147,11 +149,6 @@ void spi_write_array( uint8_t len, uint8_t *data);
 void spi_write_read(uint8_t *tx_Data, uint8_t tx_len, uint8_t *rx_data, uint8_t rx_len);
 
 void print_voltage();
-
-//const int TOTAL_IC = 1;
-uint8_t ADCV[2]; //!< Cell Voltage conversion command.
-uint8_t ADAX[2]; //!< GPIO conversion command.
-uint16_t cell_codes[][12]={0,0,0,0,0,0,0,0,0,0,0,0};
 
 int main(void)
 {
@@ -345,7 +342,7 @@ void LTC6804_adax()
  *************************************************/
 uint8_t LTC6804_rdcv(uint8_t reg,
 					 uint8_t total_ic,
-					 uint16_t cell_codes[][12]
+					 uint16_t cell_codes[TOTAL_IC][12]
 					 )
 {
   const uint8_t NUM_RX_BYT = 8;
