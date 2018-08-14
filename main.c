@@ -1027,7 +1027,7 @@ void spi_write_read(uint8_t *tx_Data,//array of data to be written on SPI port
   // }
 }
 
-void print_voltage(uint16_t cell_codes[TOTAL_IC][12];)
+void print_voltage(uint16_t cell_codes[TOTAL_IC][12])
 {
     for(int i=0; i<12; i++)
     {
