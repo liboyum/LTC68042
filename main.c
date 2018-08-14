@@ -109,7 +109,7 @@ static const unsigned int crc15Table[256] = {0x0,0xc599, 0xceab, 0xb32, 0xd8cf, 
 #define DCP_DISABLED 0
 #define DCP_ENABLED 1
 
-const int TOTAL_IC = 1;
+#define TOTAL_IC 1
 uint8_t ADCV[2]; //!< Cell Voltage conversion command.
 uint8_t ADAX[2]; //!< GPIO conversion command.
 uint16_t cell_codes[TOTAL_IC][12];
