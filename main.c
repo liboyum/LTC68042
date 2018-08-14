@@ -13,7 +13,7 @@
 #define SCK  14
 #define LTC6804_CS CE0
 
-#define CHANNEL 1
+#define CHANNEL 0
 #define SPEED   1000000
 
 static const unsigned int crc15Table[256] = {0x0,0xc599, 0xceab, 0xb32, 0xd8cf, 0x1d56, 0x1664, 0xd3fd, 0xf407, 0x319e, 0x3aac,  //!<precomputed CRC15 Table
