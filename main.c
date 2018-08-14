@@ -1009,7 +1009,7 @@ void spi_write_read(uint8_t *tx_Data,//array of data to be written on SPI port
   // {
   //  spi_write(tx_Data[i]);
   // }
-    wiringPiSPIDataRW(CHANNEL, rx_data, 1);
+   rx_data = wiringPiSPIDataRW(CHANNEL, (char)0xFF, rx_len);
   // for(uint8_t i = 0; i < rx_len; i++)
   // {
   //   rx_data[i] = (uint8_t)spi_read(0xFF);
