@@ -110,7 +110,6 @@ static const unsigned int crc15Table[256] = {0x0,0xc599, 0xceab, 0xb32, 0xd8cf, 
 #define DCP_ENABLED 1
 
 #define TOTAL_IC 1
-uint16_t cell_codes[TOTAL_IC][12];
 uint8_t tx_cfg[TOTAL_IC][6]; 
 
 void LTC6804_initialize();
@@ -147,12 +146,13 @@ void spi_write_array( uint8_t len, uint8_t *data);
 
 void spi_write_read(uint8_t *tx_Data, uint8_t tx_len, uint8_t *rx_data, uint8_t rx_len);
 
-void print_voltage();
+void print_voltage(uint16_t cell_codes[TOTAL_IC][12];);
 
 int main(void)
 {
 
 	printf("Raspberry Pi LTC6804-2 voltage test program\n");
+	uint16_t cell_codes[TOTAL_IC][12];
 	LTC6804_initialize();
 	LTC6804_wrcfg(TOTAL_IC,tx_cfg);
 //         pinMode(SCK, OUTPUT);             //! 1) Setup SCK as output
@@ -163,7 +163,7 @@ int main(void)
 //         output_high(LTC6804_CS);
 	LTC6804_adcv();
 	LTC6804_rdcv(0, TOTAL_IC, cell_codes);
-	print_voltage();
+	print_voltage(cell_codes);
 	return 0;
 }
 
@@ -1027,7 +1027,7 @@ void spi_write_read(uint8_t *tx_Data,//array of data to be written on SPI port
   // }
 }
 
-void print_voltage()
+void print_voltage(uint16_t cell_codes[TOTAL_IC][12];)
 {
     for(int i=0; i<12; i++)
     {
