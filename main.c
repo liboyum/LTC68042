@@ -110,9 +110,6 @@ static const unsigned int crc15Table[256] = {0x0,0xc599, 0xceab, 0xb32, 0xd8cf, 
 #define DCP_ENABLED 1
 
 #define TOTAL_IC 1
-uint8_t ADCV[2]; //!< Cell Voltage conversion command.
-uint8_t ADAX[2]; //!< GPIO conversion command.
-uint16_t cell_codes[TOTAL_IC][12];
 
 void LTC6804_initialize();
 
@@ -155,6 +152,7 @@ int main(void)
 
 	printf("Raspberry Pi LTC6804-2 voltage test program\n");
 	LTC6804_initialize();
+        uint16_t cell_codes[TOTAL_IC][12];
 //         pinMode(SCK, OUTPUT);             //! 1) Setup SCK as output
 //         pinMode(MOSI, OUTPUT);            //! 2) Setup MOSI as output
 //         pinMode(LTC6804_CS, OUTPUT);      //! 3) Setup CS as output
@@ -167,6 +165,8 @@ int main(void)
 	return 0;
 }
 
+uint8_t ADCV[2]; //!< Cell Voltage conversion command.
+uint8_t ADAX[2]; //!< GPIO conversion command.
 /*!
   \brief This function will initialize all 6804 variables and the SPI port.
   input: 
