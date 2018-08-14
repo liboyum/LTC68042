@@ -1,5 +1,3 @@
-#include <string.h>
-#include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
@@ -13,7 +11,7 @@
 #define MISO 12 
 #define MOSI 13
 #define SCK  14
-#define LTC6804_CS CE0
+#define LTC6804_CS 10
 
 #define CHANNEL 0
 #define SPEED   1000000
@@ -161,9 +159,9 @@ int main(void)
         pinMode(SCK, OUTPUT);             //! 1) Setup SCK as output
         pinMode(MOSI, OUTPUT);            //! 2) Setup MOSI as output
         pinMode(LTC6804_CS, OUTPUT);      //! 3) Setup CS as output
-        output_low(SCK);
-        output_low(MOSI);
-        output_high(LTC6804_CS);
+//         output_low(SCK);
+//         output_low(MOSI);
+//         output_high(LTC6804_CS);
 	LTC6804_adcv();
 	rdError = LTC6804_rdcv(0, TOTAL_IC, cell_codes);
 	if(rdError == -1){
