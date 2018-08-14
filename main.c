@@ -1026,6 +1026,6 @@ void print_voltage()
 {
     for(int i=0; i<12; i++)
     {
-      printf("The voltage is %.4f\n", cell_codes[TOTAL_IC][i]*0.0001);
+      printf("The voltage is %1.2f\n", cell_codes[TOTAL_IC][i]*0.0001);
     }
 }
