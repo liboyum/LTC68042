@@ -11,7 +11,7 @@
 #define MISO 12 
 #define MOSI 13
 #define SCK  14
-#define LTC6804_CS 10
+#define LTC6804_CS CE0
 
 #define CHANNEL 0
 #define SPEED   1000000
