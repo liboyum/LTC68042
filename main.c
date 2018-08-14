@@ -1003,6 +1003,7 @@ void spi_write_read(uint8_t *tx_Data,//array of data to be written on SPI port
 					uint8_t rx_len //Option: number of bytes to be read from the SPI port
 					)
 {
+    printf("$$$ %d $$$\n",tx_Data);
     wiringPiSPIDataRW(CHANNEL, tx_Data, tx_len);
   // for(uint8_t i = 0; i < tx_len; i++)
   // {
