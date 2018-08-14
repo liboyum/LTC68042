@@ -110,12 +110,11 @@ static const unsigned int crc15Table[256] = {0x0,0xc599, 0xceab, 0xb32, 0xd8cf, 
 #define DCP_ENABLED 1
 
 #define TOTAL_IC 1
-uint8_t tx_cfg[TOTAL_IC][6]; 
 uint16_t cell_codes[TOTAL_IC][12];
 int error = 0;
 
 void LTC6804_initialize();
-// void init_cfg();
+
 void set_adc(uint8_t MD, uint8_t DCP, uint8_t CH, uint8_t CHG);
 
 void LTC6804_adcv(); 
@@ -144,15 +143,14 @@ void wakeup_sleep();
 
 uint16_t pec15_calc(uint8_t len, uint8_t *data);
 
-void spi_write_array( uint8_t len, uint8_t *data);
+void spi_write_array( uint8_t len, uint8_t data[]);
 
-void spi_write_read(uint8_t *tx_Data, uint8_t tx_len, uint8_t *rx_data, uint8_t rx_len);
+void spi_write_read(uint8_t tx_Data[], uint8_t tx_len, uint8_t *rx_data, uint8_t rx_len);
 
 void print_voltage();
 
 int main(void)
 {
-
 	printf("Raspberry Pi LTC6804-2 voltage test program\n");
 	LTC6804_initialize();
 // 	LTC6804_wrcfg(TOTAL_IC,tx_cfg);
@@ -183,29 +181,9 @@ uint8_t ADAX[2]; //!< GPIO conversion command.
 */
 void LTC6804_initialize()
 {
-  // quikeval_SPI_connect();
-  // spi_enable(SPI_CLOCK_DIV16);
-  // pinMode(SCK, OUTPUT);             //! 1) Setup SCK as output
-  // pinMode(MOSI, OUTPUT);            //! 2) Setup MOSI as output
-  // pinMode(LTC6804_CS, OUTPUT);      //! 3) Setup CS as output
-  // output_low(SCK);
-  // output_low(MOSI);
-  // output_high(LTC6804_CS);
   wiringPiSetup();
-//   init_cfg();
   set_adc(MD_NORMAL,DCP_DISABLED,CELL_CH_ALL,AUX_CH_ALL);
 }
-
-// void init_cfg(){
-//   for(int i = 0; i<TOTAL_IC;i++){
-//     tx_cfg[i][0] = 0x04;
-//     tx_cfg[i][1] = 0x00;
-//     tx_cfg[i][2] = 0x00;
-//     tx_cfg[i][3] = 0x00;
-//     tx_cfg[i][4] = 0x00;
-//     tx_cfg[i][5] = 0x10;
-//   }
-// }
 
 /*!******************************************************************************************************************
  \brief Maps  global ADC control variables to the appropriate control bytes for each of the different ADC commands
@@ -993,7 +971,7 @@ uint16_t pec15_calc(uint8_t len, uint8_t *data)
  
 */
 void spi_write_array(uint8_t len, // Option: Number of bytes to be written on the SPI port
-					 uint8_t *data //Array of bytes to be written on the SPI port
+					 uint8_t data[] //Array of bytes to be written on the SPI port
 					 )
 {
   wiringPiSPIDataRW(CHANNEL, data, len);
@@ -1010,7 +988,7 @@ void spi_write_array(uint8_t len, // Option: Number of bytes to be written on th
 @param[in] uint8_t rx_len number of bytes to be read from the SPI port.
 */
 
-void spi_write_read(uint8_t *tx_Data,//array of data to be written on SPI port 
+void spi_write_read(uint8_t tx_Data[],//array of data to be written on SPI port 
 					uint8_t tx_len, //length of the tx data arry
 					uint8_t *rx_data,//Input: array that will store the data read by the SPI port
 					uint8_t rx_len //Option: number of bytes to be read from the SPI port
