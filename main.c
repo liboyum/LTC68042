@@ -148,12 +148,15 @@ void spi_write_read(uint8_t *tx_Data, uint8_t tx_len, uint8_t *rx_data, uint8_t 
 
 void print_voltage(uint16_t cell_codes[][12]);
 
+//const int TOTAL_IC = 1;
+uint8_t ADCV[2]; //!< Cell Voltage conversion command.
+uint8_t ADAX[2]; //!< GPIO conversion command.
+uint16_t cell_codes[][12]={0,0,0,0,0,0,0,0,0,0,0,0};
 
 int main(void)
 {
 
 	printf("Raspberry Pi LTC6804-2 voltage test program\n");
-	uint16_t cell_codes[][12]={0,0,0,0,0,0,0,0,0,0,0,0};
 	LTC6804_initialize();
         pinMode(SCK, OUTPUT);             //! 1) Setup SCK as output
         pinMode(MOSI, OUTPUT);            //! 2) Setup MOSI as output
@@ -163,13 +166,9 @@ int main(void)
         output_high(LTC6804_CS);
 	LTC6804_adcv();
 	LTC6804_rdcv(0, 1, cell_codes);
-	print_voltage(cell_codes);
+	print_voltage();
 	return 0;
 }
-
-uint8_t ADCV[2]; //!< Cell Voltage conversion command.
-uint8_t ADAX[2]; //!< GPIO conversion command.
-
 
 /*!
   \brief This function will initialize all 6804 variables and the SPI port.
@@ -1017,7 +1016,7 @@ void spi_write_read(uint8_t *tx_Data,//array of data to be written on SPI port
   // }
 }
 
-void print_voltage(uint16_t cell_codes[][12])
+void print_voltage()
 {
     for(int i=0; i<12; i++)
     {
