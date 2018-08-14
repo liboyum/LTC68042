@@ -166,7 +166,7 @@ int main(void)
         output_high(LTC6804_CS);
 	LTC6804_adcv();
 	rdError = LTC6804_rdcv(0, TOTAL_IC, cell_codes);
-	if(rdError = -1){
+	if(rdError == -1){
 		printf("A PEC error was detected in the received data\n");
 	}
 	else{
