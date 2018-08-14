@@ -163,7 +163,7 @@ int main(void)
 //         output_low(MOSI);
 //         output_high(LTC6804_CS);
 	LTC6804_adcv();
-	rdError = LTC6804_rdcv(2, TOTAL_IC, cell_codes);
+	rdError = LTC6804_rdcv(0, TOTAL_IC, cell_codes);
 	if(rdError == -1){
 		printf("A PEC error was detected in the received data\n");
 	}
@@ -1010,6 +1010,7 @@ void spi_write_read(uint8_t *tx_Data,//array of data to be written on SPI port
 
   // }
     wiringPiSPIDataRW(CHANNEL, rx_data, rx_len);
+    printf("*** %d ***\n",rx_data);
   // for(uint8_t i = 0; i < rx_len; i++)
   // {
   //   rx_data[i] = (uint8_t)spi_read(0xFF);
