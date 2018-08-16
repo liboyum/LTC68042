@@ -7,6 +7,9 @@
 #include "LTC68042_PI.h"
 
 #define TOTAL_IC 1
+
+void print_voltage();
+
 uint16_t cell_codes[TOTAL_IC][12];
 int rdError = 0;
 int setupError = 0;
@@ -33,4 +36,12 @@ int main(void)
 	}
 	LTC6804_clrcell();
 	return 0;
+}
+
+void print_voltage()
+{
+    for(int i=0; i<12; i++)
+    {
+      printf("The voltage is %.2f\n", cell_codes[TOTAL_IC][i]*0.0001);
+    }
 }
