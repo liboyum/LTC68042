@@ -1,5 +1,5 @@
 main: main.o LTC6804_2.o 
-		gcc -o main.o LTC6804_2.o -lwiringPi
+		gcc -o main main.o LTC6804_2.o -lwiringPi
 
 main.o: main.c 
 		gcc -c main.c -lwiringPi
