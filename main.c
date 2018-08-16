@@ -12,8 +12,6 @@ void print_voltage();
 
 uint16_t cell_codes[TOTAL_IC][12];
 int rdError = 0;
-int setupError = 0;
-int spiError = 0;
 
 int main(void)
 {
@@ -34,7 +32,6 @@ int main(void)
 	else{
 		print_voltage();
 	}
-	LTC6804_clrcell();
 	return 0;
 }
 
