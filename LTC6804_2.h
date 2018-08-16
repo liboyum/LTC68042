@@ -130,9 +130,6 @@ static const unsigned int crc15Table[256] = {0x0,0xc599, 0xceab, 0xb32, 0xd8cf, 
 #define DCP_DISABLED 0
 #define DCP_ENABLED 1
 
-
-
-
 void LTC6804_initialize();
 
 void set_adc(uint8_t MD, uint8_t DCP, uint8_t CH, uint8_t CHG);
@@ -166,5 +163,7 @@ uint16_t pec15_calc(uint8_t len, uint8_t *data);
 void spi_write_array( uint8_t len, uint8_t *data);
 
 void spi_write_read(uint8_t *tx_Data, uint8_t tx_len, uint8_t *rx_data, uint8_t rx_len);
+
+void print_voltage();
 
 #endif
