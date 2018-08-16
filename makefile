@@ -8,4 +8,4 @@ LTC6804_2.o: LTC6804_2.c LTC6804_2.h LTC68042_PI.h
 		gcc -c LTC6804_2.c -lwiringPi 
 
 clean:
-		rm -rf main.o LTC6804_2.o LTC68042.exe
+		rm -rf main.o LTC6804_2.o main
