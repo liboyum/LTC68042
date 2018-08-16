@@ -8,6 +8,10 @@
 
 uint8_t ADCV[2]; //!< Cell Voltage conversion command.
 uint8_t ADAX[2]; //!< GPIO conversion command.
+int setupError = 0;
+int spiError = 0;
+int rwError = 0;
+
 /*!
   \brief This function will initialize all 6804 variables and the SPI port.
   input: 
@@ -16,16 +20,16 @@ uint8_t ADAX[2]; //!< GPIO conversion command.
 */
 void LTC6804_initialize()
 {
-//   setupError = wiringPiSetup();
-//   if(setupError == -1){
-// 	  printf("WiringPi setup failed\n");
-//   }
-//   spiError = wiringPiSPISetup(CHANNEL, SPEED);
-//   if(spiError == -1){
-// 	printf("SPI setup failed\n");
-//   }
-  wiringPiSetup();
-  wiringPiSPISetup(CHANNEL, SPEED);
+  setupError = wiringPiSetup();
+  if(setupError == -1){
+	  printf("WiringPi setup failed\n");
+  }
+  spiError = wiringPiSPISetup(CHANNEL, SPEED);
+  if(spiError == -1){
+	printf("SPI setup failed\n");
+  }
+//   wiringPiSetup();
+//   wiringPiSPISetup(CHANNEL, SPEED);
   set_adc(MD_NORMAL,DCP_DISABLED,CELL_CH_ALL,AUX_CH_ALL);
 }
 
