@@ -4,32 +4,28 @@
 #include <wiringPi.h>
 #include <wiringPiSPI.h>
 #include "LTC6804_2.h"
+#include "LTC68042_PI.h"
 
-/*!
-  6804 conversion command variables.  
-*/
 uint8_t ADCV[2]; //!< Cell Voltage conversion command.
 uint8_t ADAX[2]; //!< GPIO conversion command.
-
-
 /*!
   \brief This function will initialize all 6804 variables and the SPI port.
-
   input: 
   ------
   IC: number of ICs being controlled. The address of the ICs in a LTC6804-2 network will start at 0 and continue in an ascending order.
 */
 void LTC6804_initialize()
 {
-  // quikeval_SPI_connect();
-  // spi_enable(SPI_CLOCK_DIV16);
-  // pinMode(SCK, OUTPUT);             //! 1) Setup SCK as output
-  // pinMode(MOSI, OUTPUT);            //! 2) Setup MOSI as output
-  // pinMode(LTC6804_CS, OUTPUT);      //! 3) Setup CS as output
-  // output_low(SCK);
-  // output_low(MOSI);
-  // output_high(LTC6804_CS);
-  wiringPiSetup(CHANNEL, SPEED);
+//   setupError = wiringPiSetup();
+//   if(setupError == -1){
+// 	  printf("WiringPi setup failed\n");
+//   }
+//   spiError = wiringPiSPISetup(CHANNEL, SPEED);
+//   if(spiError == -1){
+// 	printf("SPI setup failed\n");
+//   }
+  wiringPiSetup();
+  wiringPiSPISetup(CHANNEL, SPEED);
   set_adc(MD_NORMAL,DCP_DISABLED,CELL_CH_ALL,AUX_CH_ALL);
 }
 
@@ -174,7 +170,6 @@ void LTC6804_adax()
  
 @param[in] uint8_t total_ic; This is the number of ICs in the network
  
-
 @param[out] uint16_t cell_codes[]; An array of the parsed cell codes from lowest to highest. The cell codes will
   be stored in the cell_codes[] array in the following format:
   |  cell_codes[0]| cell_codes[1] |  cell_codes[2]|    .....     |  cell_codes[11]|  cell_codes[12]| cell_codes[13] |  .....   |
@@ -370,7 +365,6 @@ void LTC6804_rdcv_reg(uint8_t reg,
 		  
  
  @param[in] uint8_t total_ic; This is the number of ICs in the network
-
  @param[out] uint8_t aux_codes[]; An array of the aux codes from lowest to highest. The GPIO codes will
  be stored in the aux_codes[] array in the following format:
  |  aux_codes[0]| aux_codes[1] |  aux_codes[2]|  aux_codes[3]|  aux_codes[4]|  aux_codes[5]| aux_codes[6] |aux_codes[7]|  .....    |
@@ -486,7 +480,6 @@ int8_t LTC6804_rdaux(uint8_t reg,
           1: Read back auxiliary group A
 		  
           2: Read back auxiliary group B 
-
          
  @param[in] uint8_t total_ic; This is the number of ICs in the stack
  
@@ -627,7 +620,6 @@ void LTC6804_clraux()
  connected in a stack stack. The configuration is written in descending 
  order so the last device's configuration is written first.
  
-
 @param[in] uint8_t total_ic; The number of ICs being written. 
  
 @param[in] uint8_t *config an array of the configuration data that will be written, the array should contain the 6 bytes for each
@@ -694,26 +686,18 @@ void LTC6804_wrcfg(uint8_t total_ic,uint8_t config[][6])
 	3. Calculate the pec for the LTC6804 configuration data being transmitted
 	4. wakeup isoSPI port, this step can be removed if isoSPI status is previously guaranteed
 	5. Write configuration of each LTC6804 on the stack
-
 */
 
 /*!******************************************************
  \brief Reads configuration registers of a LTC6804 stack
  
-
-
-
 @param[in] uint8_t total_ic: number of ICs in the stack
-
 @param[out] uint8_t *r_config: array that the function will write configuration data to. The configuration data for each IC 
 is stored in blocks of 8 bytes with the configuration data of the lowest IC on the stack in the first 8 bytes 
 of the array, the second IC in the second 8 byte etc. Below is an table illustrating the array organization:
-
 |r_config[0]|r_config[1]|r_config[2]|r_config[3]|r_config[4]|r_config[5]|r_config[6]  |r_config[7] |r_config[8]|r_config[9]|  .....    |
 |-----------|-----------|-----------|-----------|-----------|-----------|-------------|------------|-----------|-----------|-----------|
 |IC1 CFGR0  |IC1 CFGR1  |IC1 CFGR2  |IC1 CFGR3  |IC1 CFGR4  |IC1 CFGR5  |IC1 PEC High |IC1 PEC Low |IC2 CFGR0  |IC2 CFGR1  |  .....    |
-
-
 @return int8_t PEC Status.
 	0: Data read back has matching PEC
  
@@ -776,7 +760,6 @@ int8_t LTC6804_rdcfg(uint8_t total_ic, uint8_t r_config[][8])
 	  a. load configuration data into r_config array
 	  b. calculate PEC of received data and compare against calculated PEC
 	5. Return PEC Error
-
 */
 
 /*!****************************************************
@@ -804,12 +787,10 @@ void wakeup_sleep()
 /*!**********************************************************
  \brief calaculates  and returns the CRC15
   
-
 @param[in]  uint8_t len: the length of the data array being passed to the function
                
 @param[in]  uint8_t data[] : the array of data that the PEC will be generated from
   
-
 @return  The calculated pec15 as an unsigned int16_t
 ***********************************************************/
 uint16_t pec15_calc(uint8_t len, uint8_t *data)
@@ -837,7 +818,7 @@ void spi_write_array(uint8_t len, // Option: Number of bytes to be written on th
 					 uint8_t *data //Array of bytes to be written on the SPI port
 					 )
 {
-  wiringPiSPIDataRW(CHANNEL, data, len);
+    wiringPiSPIDataRW(CHANNEL, data, len);
   // for(uint8_t i = 0; i < len; i++)
   // {
   //    spi_write((char)data[i]);
@@ -845,12 +826,10 @@ void spi_write_array(uint8_t len, // Option: Number of bytes to be written on th
 }
 /*!
  \brief Writes and read a set number of bytes using the SPI port.
-
 @param[in] uint8_t tx_data[] array of data to be written on the SPI port
 @param[in] uint8_t tx_len length of the tx_data array
 @param[out] uint8_t rx_data array that read data will be written too. 
 @param[in] uint8_t rx_len number of bytes to be read from the SPI port.
-
 */
 
 void spi_write_read(uint8_t *tx_Data,//array of data to be written on SPI port 
@@ -859,19 +838,22 @@ void spi_write_read(uint8_t *tx_Data,//array of data to be written on SPI port
 					uint8_t rx_len //Option: number of bytes to be read from the SPI port
 					)
 {
-  wiringPiSPIDataRW(CHANNEL, tx_Data, tx_len)；
+  wiringPiSPIDataRW(CHANNEL, tx_Data, tx_len);
   // for(uint8_t i = 0; i < tx_len; i++)
   // {
   //  spi_write(tx_Data[i]);
-
   // }
-  wiringPiSPIDataRW(CHANNEL, rx_data, rx_len)；
-  for(uint8_t i = 0; i < rx_len; i++)
-  {
-    printf("The voltage is %d\n", rx_data[i]);
-  }
+  wiringPiSPIDataRW(CHANNEL, rx_data, rx_len);
   // for(uint8_t i = 0; i < rx_len; i++)
   // {
   //   rx_data[i] = (uint8_t)spi_read(0xFF);
   // }
+}
+
+void print_voltage()
+{
+    for(int i=0; i<12; i++)
+    {
+      printf("The voltage is %.2f\n", cell_codes[TOTAL_IC][i]*0.0001);
+    }
 }
