@@ -21,7 +21,7 @@ int main(void)
         pinMode(CE0, OUTPUT);             //! 3) Setup CS as output
 	LTC6804_adcv();
 	rdError = LTC6804_rdcv(0, TOTAL_IC, cell_codes);
-	if(rdError == -1){
+	if(rdError == 255){
 		printf("A PEC error was detected in the received data\n");
 	}
 	else{
