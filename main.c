@@ -9,12 +9,11 @@
 #define TOTAL_IC 1
 
 void print_voltage();
-
+uint16_t cell_codes[TOTAL_IC][12];
 int rdError = 0;
 
 int main(void)
 {
-	uint16_t cell_codes[TOTAL_IC][12];
 	printf("Raspberry Pi LTC6804-2 voltage test program\n");
 	LTC6804_initialize();
         pinMode(SCK, OUTPUT);             //! 1) Setup SCK as output
