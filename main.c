@@ -20,7 +20,7 @@ int main(void)
         pinMode(MOSI, OUTPUT);            //! 2) Setup MOSI as output
         pinMode(CE0, OUTPUT);             //! 3) Setup CS as output
 	LTC6804_adcv();
-	rdError = LTC6804_rdcv(1, TOTAL_IC, cell_codes);
+	rdError = LTC6804_rdcv(0, TOTAL_IC, cell_codes);
 	if(rdError == -1){
 		printf("A PEC error was detected in the received data\n");
 	}
