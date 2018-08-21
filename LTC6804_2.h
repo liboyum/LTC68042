@@ -1,5 +1,5 @@
-#ifndef LTC68042_test_H
-#define LTC68042_test_H
+#ifndef LTC6804_2_H
+#define LTC6804_2_H
 
 #ifndef LTC6804_CS
 #define LTC6804_CS CE0
