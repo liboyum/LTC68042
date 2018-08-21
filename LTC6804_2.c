@@ -825,7 +825,7 @@ void spi_write_array(uint8_t len, // Option: Number of bytes to be written on th
     //wiringPiSPIDataRW(CHANNEL, data, len);
    for(uint8_t i = 0; i < len; i++)
    {
-        wiringPiSPIDataRW(CHANNEL, data[i], len);
+        wiringPiSPIDataRW(CHANNEL, (char)data[i], len);
   //    spi_write((char)data[i]);
    }
 }
@@ -846,13 +846,13 @@ void spi_write_read(uint8_t *tx_Data,//array of data to be written on SPI port
   //wiringPiSPIDataRW(CHANNEL, tx_Data, tx_len);
   for(uint8_t i = 0; i < tx_len; i++)
   {
-      wiringPiSPIDataRW(CHANNEL, tx_Data[i], tx_len);
+      wiringPiSPIDataRW(CHANNEL, (char)tx_Data[i], tx_len);
   //  spi_write(tx_Data[i]);
   }
   //wiringPiSPIDataRW(CHANNEL, rx_data, rx_len);
   for(uint8_t i = 0; i < rx_len; i++)
   {
-       wiringPiSPIDataRW(CHANNEL, rx_data[i], rx_len);
+       wiringPiSPIDataRW(CHANNEL, (char)rx_data[i], rx_len);
   //   rx_data[i] = (uint8_t)spi_read(0xFF);
   }
 }
