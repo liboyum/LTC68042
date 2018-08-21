@@ -20,9 +20,6 @@ int rwError = 0;
 */
 void LTC6804_initialize()
 {
-  pinMode(SCK, OUTPUT);             //! 1) Setup SCK as output
-  pinMode(MOSI, OUTPUT);            //! 2) Setup MOSI as output
-  pinMode(CE0, OUTPUT);             //! 3) Setup CS as output
   setupError = wiringPiSetup();
   if(setupError == -1){
 	  printf("WiringPi setup failed\n");
