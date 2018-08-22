@@ -1,11 +1,11 @@
-main: main.o LTC6804_2.o 
-		gcc -o main main.o LTC6804_2.o -lwiringPi
+main: main.o ltc68042_bcm.o 
+		gcc -o main main.o ltc68042_bcm.o -lbcm2835
 
 main.o: main.c 
-		gcc -c main.c -lwiringPi
+		gcc -c main.c -lbcm2835
 
-LTC6804_2.o: LTC6804_2.c LTC6804_2.h LTC68042_PI.h
-		gcc -c LTC6804_2.c -lwiringPi 
+ltc68042_bcm.o: ltc68042_bcm.c ltc68042_bcm.h 
+		gcc -c ltc68042_bcm.c -lbcm2835 
 
 clean:
-		rm -rf main.o LTC6804_2.o main
+		rm -rf main.o ltc68042_bcm.o main
