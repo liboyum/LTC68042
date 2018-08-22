@@ -9,9 +9,9 @@
 #define input(pin)         digitalRead(pin);
 
 #define CE0  10
-#define MISO 12 
-#define MOSI 13
-#define SCK  14
+#define MISO 24 
+#define MOSI 28
+#define SCK  29
 
 #define CHANNEL 0
 #define SPEED   500000
