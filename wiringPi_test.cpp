@@ -17,7 +17,7 @@ int main()
 	unsigned char cmd1[] = {0x80,0x04,0x77,0xd6};
 	wiringPiSPIDataRW(CHANNEL,cmd1,4);
     
-	uint8_t cell_data[8];
+	int cell_data[8];
 	cell_data[0] = wiringPiSPIDataRW(CHANNEL,0xFF,1);
 	cell_data[1] = wiringPiSPIDataRW(CHANNEL,0xFF,1);
 	cell_data[2] = wiringPiSPIDataRW(CHANNEL,0xFF,1);
