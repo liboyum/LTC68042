@@ -18,14 +18,18 @@ int main()
 	wiringPiSPIDataRW(CHANNEL,cmd1,4);
     
 	uint8_t cell_data[8];
-	cell_data[0] = wiringPiSPIDataRW(CHANNEL,0x00,1);
-	cell_data[1] = wiringPiSPIDataRW(CHANNEL,0x00,1);
-	cell_data[2] = wiringPiSPIDataRW(CHANNEL,0x00,1);
-	cell_data[3] = wiringPiSPIDataRW(CHANNEL,0x00,1);
-	cell_data[4] = wiringPiSPIDataRW(CHANNEL,0x00,1);
-	cell_data[5] = wiringPiSPIDataRW(CHANNEL,0x00,1);
-	cell_data[6] = wiringPiSPIDataRW(CHANNEL,0x00,1);
-	cell_data[7] = wiringPiSPIDataRW(CHANNEL,0x00,1);
+	cell_data[0] = wiringPiSPIDataRW(CHANNEL,0xFF,1);
+	cell_data[1] = wiringPiSPIDataRW(CHANNEL,0xFF,1);
+	cell_data[2] = wiringPiSPIDataRW(CHANNEL,0xFF,1);
+	cell_data[3] = wiringPiSPIDataRW(CHANNEL,0xFF,1);
+	cell_data[4] = wiringPiSPIDataRW(CHANNEL,0xFF,1);
+	cell_data[5] = wiringPiSPIDataRW(CHANNEL,0xFF,1);
+	cell_data[6] = wiringPiSPIDataRW(CHANNEL,0xFF,1);
+	cell_data[7] = wiringPiSPIDataRW(CHANNEL,0xFF,1);
+	
+	printf("%d\n",cell_data[0]+(cell_data[1]<<8));
+	printf("%d\n",cell_data[2]+(cell_data[3]<<8));
+	printf("%d\n",cell_data[4]+(cell_data[5]<<8));
 	
 	return 0;
 }
